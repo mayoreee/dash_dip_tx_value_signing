@@ -13,8 +13,8 @@ License: MIT License
 - [Motivation](#motivation)
 - [Specification](#specification)
 - [Example](#example)
-  * [Native P2WPKH](#native-p2wpkh)
-  * [Native P2WSH](#native-p2wsh)
+  * [P2PKH](#native-p2pkh)
+  * [P2SH](#native-p2sh)
 - [References](#references)
 
 
@@ -179,7 +179,7 @@ uint256 GetOutputsHash(const CTransaction &txTo) {
 
 To ensure consistency in consensus-critical behaviour, developers should test their implementations against all the tests below.
 
-# Native P2WPKH 
+# P2PKH 
   ````
   The following is an unsigned transaction:
     0100000002fff7f7881a8099afa6940d42d1e7f6362bec38171ea3edf433541db4e4ad969f0000000000eeffffffef51e1b804cc89d182d279655c3aa89e815b1b309fe287d9b2b55d57b90ec68a0100000000ffffffff02202cb206000000001976a9148280b37df378db99f66f85c95a783a76ac7a6d5988ac9093510d000000001976a9143bde42dbee7e4dbe6a21b2d50ce2f0167faa815988ac11000000
@@ -244,7 +244,7 @@ To ensure consistency in consensus-critical behaviour, developers should test th
     nLockTime: 11000000
 ````
                       
-# Native P2WSH
+# P2SH
 
 ````
 This example shows how <code>OP_CODESEPARATOR</code> and out-of-range <code>SIGHASH_SINGLE</code> are processed:
