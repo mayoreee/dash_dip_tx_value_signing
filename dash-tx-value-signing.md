@@ -239,8 +239,6 @@ To ensure consistency in consensus-critical behaviour, developers should test th
                   ef51e1b804cc89d182d279655c3aa89e815b1b309fe287d9b2b55d57b90ec68a 01000000 00 ffffffff
     txout:     02 202cb20600000000 1976a9148280b37df378db99f66f85c95a783a76ac7a6d5988ac
                   9093510d00000000 1976a9143bde42dbee7e4dbe6a21b2d50ce2f0167faa815988ac
-    witness    00
-               02 47304402203609e17b84f6a7d30c80bfa610b5b4542f32a8a0d5447a12fb1366d7f01cc44a0220573a954c4518331561406f90300e8f3358f51928d43c212a8caed02de67eebee01 21025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357
     nLockTime: 11000000
 ````
                       
@@ -264,10 +262,9 @@ This example shows how <code>OP_CODESEPARATOR</code> and out-of-range <code>SIGH
     scriptPubKey: 21036d5c20fa14fb2f635474c1dc4ef5909d4568e5569b79fc94d3448486e14685f8ac value: 1.5625
     private key:  b8f28a772fccbf9b4f58a4f027e07dc2e35e7cd80529975e292ea34f84c4580c
     signature:    304402200af4e47c9b9629dbecc21f73af989bdaa911f7e6f6c2e9394588a3aa68f81e9902204f3fcf6ade7e5abb1295b6774c8e0abd94ae62217367096bc02ee5e435b67da201 (SIGHASH_ALL)
-  
-  The second input comes from a native P2SH witness program:
+ 
+  The second input comes from a P2SH program:
     scriptPubKey : 00205d1b56b63d714eebe542309525f484b7e9d6f686b3781b6f61ef925d66d6f6a0, value: 49
-    witnessScript: 21026dccc749adc2a9d0d89497ac511f760f45c47dc5ed9cf352a58ac706453880aeadab210255a9626aebf5e29c0e6538428ba0d1dcf6ca98ffdf086aa8ced5e0d0215ea465ac
                    <026dccc749adc2a9d0d89497ac511f760f45c47dc5ed9cf352a58ac706453880ae> CHECKSIGVERIFY CODESEPARATOR <0255a9626aebf5e29c0e6538428ba0d1dcf6ca98ffdf086aa8ced5e0d0215ea465> CHECKSIG
   
   To sign it with a nHashType of 3 (SIGHASH_SINGLE):
@@ -322,14 +319,12 @@ This example shows how unexecuted <code>OP_CODESEPARATOR</code> is processed, an
                   8096980000000000 1976a9146648a8cd4531e1ec47f35916de8e259237294d1e88ac
     nLockTime: 00000000
   
-  The first input comes from a native P2WSH witness program:
-    scriptPubKey: 0020ba468eea561b26301e4cf69fa34bde4ad60c81e70f059f045ca9a79931004a4d value: 0.16777215
-    witnessScript:0063ab68210392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98ac
+  The first input comes from a P2SH program:
+    scriptPubKey: 0020ba468eea561b26301e4cf69fa34be4ad60c81e70f059f045ca9a79931004a4d value: 0.16777215
                   0 IF CODESEPARATOR ENDIF <0392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98> CHECKSIG
   
-  The second input comes from a native P2WSH witness program:
+  The second input comes from a P2SH program:
     scriptPubKey: 0020d9bbfbe56af7c4b7f960a70d7ea107156913d9e5a26b0a71429df5e097ca6537 value: 0.16777215
-    witnessScript:5163ab68210392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98ac
                   1 IF CODESEPARATOR ENDIF <0392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98> CHECKSIG
   
   To sign it with a nHashType of 0x83 (SINGLE|ANYONECANPAY):
@@ -374,8 +369,6 @@ This example shows how unexecuted <code>OP_CODESEPARATOR</code> is processed, an
                   80e68831516392fcd100d186b3c2c7b95c80b53c77e77c35ba03a66b429a2a1b 00000000 00 ffffffff
     txout:     02 8096980000000000 1976a914de4b231626ef508c9a74a8517e6783c0546d6b2888ac
                   8096980000000000 1976a9146648a8cd4531e1ec47f35916de8e259237294d1e88ac
-    witness    02 483045022100f6a10b8604e6dc910194b79ccfc93e1bc0ec7c03453caaa8987f7d6c3413566002206216229ede9b4d6ec2d325be245c5b508ff0339bf1794078e20bfe0babc7ffe683 270063ab68210392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98ac
-               02 4730440220032521802a76ad7bf74d0e2c218b72cf0cbc867066e2e53db905ba37f130397e02207709e2188ed7f08f4c952d9d13986da504502b8c3be59617e043552f506c46ff83 275163ab68210392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98ac
     nLockTime: 00000000
   
   Since SINGLE|ANYONECANPAY does not commit to the input index, the signatures are still valid when the input-output pairs are swapped:
@@ -387,8 +380,6 @@ This example shows how unexecuted <code>OP_CODESEPARATOR</code> is processed, an
                   e9b542c5176808107ff1df906f46bb1f2583b16112b95ee5380665ba7fcfc001 00000000 00 ffffffff
     txout:     02 8096980000000000 1976a9146648a8cd4531e1ec47f35916de8e259237294d1e88ac
                   8096980000000000 1976a914de4b231626ef508c9a74a8517e6783c0546d6b2888ac
-    witness    02 4730440220032521802a76ad7bf74d0e2c218b72cf0cbc867066e2e53db905ba37f130397e02207709e2188ed7f08f4c952d9d13986da504502b8c3be59617e043552f506c46ff83 275163ab68210392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98ac
-               02 483045022100f6a10b8604e6dc910194b79ccfc93e1bc0ec7c03453caaa8987f7d6c3413566002206216229ede9b4d6ec2d325be245c5b508ff0339bf1794078e20bfe0babc7ffe683 270063ab68210392972e2eb617b2388771abe27235fd5ac44af8e61693261550447a4c3e39da98ac
     nLockTime: 00000000
 ````
 
